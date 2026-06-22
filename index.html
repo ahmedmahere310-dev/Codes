@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Split Screen Premium Bottom Navigation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet"/>
+  
+  <style>
+    /* ── التنسيق الأساسي للموقع ── */
+    *, *::before, *::after { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    :root {
+      --bg-speed: 0.6s;
+      --nav-speed: 0.4s;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', 'Cairo', sans-serif;
+      display: flex;
+      flex-direction: row; /* عرض جنباً إلى جنب للشاشات الكبيرة */
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* تقسيم الشاشة عمودياً على الأجهزة المحمولة */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+    }
+
+    /* ── تصميم كل نصف من الشاشة ── */
+    .split-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 15px; /* تم تقليل البادنج لتقليص الارتفاع الكلي */
+      position: relative;
+      transition: background var(--bg-speed) cubic-bezier(0.25, 1, 0.5, 1);
+      overflow: hidden;
+    }
+
+    /* النصف المظلم */
+    .dark-pane {
+      background: radial-gradient(circle at center, #131520 0%, #08090d 100%);
+      border-left: 1px solid rgba(255, 255, 255, 0.03);
+    }
+    
+    /* النصف المضيء (البيج والأسود) */
+    .light-pane {
+      background: radial-gradient(circle at center, #f4f0e6 0%, #dcd7ca 100%);
+      border-right: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    @media (max-width: 768px) {
+      .dark-pane {
+        border-left: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .light-pane {
+        border-right: none;
+        border-top: 1px solid rgba(0, 0, 0, 0.03);
+      }
+    }
+
+    /* ── البطاقة الحاضنة لشريط التنقل (Glassmorphism Pod) ── */
+    .nav-glass-pod {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 24px;
+      padding: 10px 20px 12px 20px; /* تم تقليص البادنج العلوي والسفلي لضغط التصميم لأقصى درجة */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s ease;
+      z-index: 5;
+    }
+
+    /* بطاقة النصف المظلم */
+    .dark-pane .nav-glass-pod {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0px rgba(255, 255, 255, 0.1);
+    }
+
+    /* بطاقة النصف المضيء (البيج والأسود) */
+    .light-pane .nav-glass-pod {
+      background: rgba(245, 242, 235, 0.75);
+      border: 1px solid rgba(24, 24, 27, 0.08);
+      box-shadow: 
+        0 20px 40px -10px rgba(24, 24, 27, 0.15),
+        inset 0 1px 0px rgba(255, 255, 255, 0.9);
+    }
+
+    /* التوهج الخلفي الملون (Dynamic Aura Glow) */
+    .glow-aura {
+      position: absolute;
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 85%;
+      height: 60px;
+      filter: blur(35px);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      transition: background var(--bg-speed) ease;
+    }
+
+    /* العنوان المصغر للتبويب الحالي */
+    .current-tab-title {
+      font-size: 11px; /* خط أصغر وأكثر نعومة للمحاذاة المدمجة */
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 6px; /* تقريب العنوان جداً من الحافة العلوية للشريط */
+      transition: opacity 0.3s ease;
+    }
+
+    .dark-pane .current-tab-title {
+      background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .light-pane .current-tab-title {
+      background: linear-gradient(135deg, #18181b 0%, #52525b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* ── شريط التنقل السفلي الفعلي ── */
+    .nav-bar-container {
+      position: relative;
+      width: 100%;
+      height: 60px; /* تم تعديل الارتفاع ليكون أكثر رشاقة وكفاءة */
+      z-index: 5;
+      direction: ltr; /* اتجاه لليسار لتوحيد حسابات الحركة في كلا اللغتين */
+    }
+
+    .nav-svg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: visible;
+    }
+
+    /* ── الكرة الفيزيائية المعلقة (Specular Ball) ── */
+    .ball {
+      position: absolute;
+      top: -18px; /* تم ضبط الارتفاع ليتطابق هندسياً مع المنحنى المطور */
+      width: 44px; /* حجم رشيقة ومناسب تماماً لحجم الأيقونات */
+      height: 44px;
+      border-radius: 50%;
+      margin-left: -22px; /* نصف عرض الكرة لضمان التوسيط البكسلي */
+      box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.45),
+        inset 0 2px 4px rgba(255, 255, 255, 0.8),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: left var(--nav-speed) cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* كرة الثيم المظلم (كروم فضي لمعان) */
+    .dark-pane .ball {
+      background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f1f5f9 15%, #94a3b8 50%, #475569 80%, #0f172a 100%);
+    }
+
+    /* كرة الثيم المضيء (أسود أوبسيديان مصقول فخم) */
+    .light-pane .ball {
+      background: radial-gradient(circle at 35% 30%, #52525b 0%, #3f3f46 20%, #18181b 60%, #09090b 100%);
+    }
+
+    /* وهج الإضاءة الانعكاسية على الكرة */
+    .ball::before {
+      content: '';
+      position: absolute;
+      top: 7px; left: 9px;
+      width: 11px; height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      filter: blur(1px);
+      transform: rotate(-15deg);
+    }
+
+    /* تأثير الارتداد الفيزيائي الفائق للكرة */
+    .ball.squish {
+      animation: ballPhysicBounce 0.42s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+    @keyframes ballPhysicBounce {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.25, 0.72); }
+      60% { transform: scale(0.85, 1.15); }
+      80% { transform: scale(1.05, 0.95); }
+      100% { transform: scale(1); }
+    }
+
+    /* أيقونات الكرة */
+    .ball-icon {
+      stroke-width: 2.3;
+      transition: transform 0.2s ease;
+    }
+    .dark-pane .ball-icon {
+      stroke: #0f172a;
+    }
+    .light-pane .ball-icon {
+      stroke: #f4f0e6; /* بيج دافئ على الكرة السوداء */
+    }
+
+    /* صفوف الأزرار للتبويبات */
+    .tabs-row {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      z-index: 8;
+    }
+    .tab-btn {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    .tab-btn svg {
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ألوان الأيقونات في الوضع المظلم */
+    .dark-pane .tab-btn svg {
+      stroke: #64748b;
+    }
+    .dark-pane .tab-btn:hover svg {
+      transform: scale(1.2) translateY(-2px);
+      stroke: #a5b4fc;
+    }
+
+    /* ألوان الأيقونات في الوضع المضيء (البيج والأسود) */
+    .light-pane .tab-btn svg {
+      stroke: #18181b;
+    }
+    .light-pane .tab-btn:hover svg {
+      transform: scale(1.2) translateY(-2px);
+      stroke: #78350f; /* برونزي دافئ */
+    }
+
+    /* إخفاء الأيقونة تلقائياً تحت الكرة */
+    .tab-btn.is-active svg {
+      opacity: 0;
+      transform: scale(0.4) translateY(10px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── 1. النصف الأيمن/العلوي: الثيم المظلم (Dark Mode) ── -->
+  <div class="split-pane dark-pane" id="darkPane">
+    <div class="nav-glass-pod">
+      <div class="glow-aura" id="darkGlow"></div>
+      <div class="current-tab-title" id="darkTitle">الواجهة الرئيسية</div>
+      
+      <div class="nav-bar-container" id="darkNavBar">
+        <svg class="nav-svg" id="darkSvg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="barGradDark" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#1e293b"/>
+              <stop offset="100%" stop-color="#0f172a"/>
+            </linearGradient>
+            <filter id="darkBarShadow" x="-10%" y="-40%" width="120%" height="180%">
+              <feDropShadow dx="0" dy="-8" stdDeviation="15" flood-color="rgba(0,0,0,0.4)"/>
+            </filter>
+          </defs>
+          <path id="darkPath" filter="url(#darkBarShadow)"/>
+        </svg>
+        
+        <div class="ball" id="darkBall">
+          <svg class="ball-icon" id="darkBallIcon" width="20" height="20" viewBox="0 0 24 24" fill="none"></svg>
+        </div>
+        
+        <div class="tabs-row">
+          <button class="tab-btn" data-pane="dark" data-index="0" aria-label="Home"></button>
+          <button class="tab-btn" data-pane="dark" data-index="1" aria-label="Search"></button>
+          <button class="tab-btn" data-pane="dark" data-index="2" aria-label="Analytics"></button>
+          <button class="tab-btn" data-pane="dark" data-index="3" aria-label="Profile"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 2. النصف الأيسر/السفلي: الثيم المضيء (Light Beige & Black) ── -->
+  <div class="split-pane light-pane" id="lightPane">
+    <div class="nav-glass-pod">
+      <div class="glow-aura" id="lightGlow"></div>
+      <div class="current-tab-title" id="lightTitle">الواجهة الرئيسية</div>
+      
+      <div class="nav-bar-container" id="lightNavBar">
+        <svg class="nav-svg" id="lightSvg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="barGradLight" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#eae4d3"/>
+              <stop offset="100%" stop-color="#dcd5c1"/>
+            </linearGradient>
+            <filter id="lightBarShadow" x="-10%" y="-40%" width="120%" height="180%">
+              <feDropShadow dx="0" dy="-8" stdDeviation="15" flood-color="rgba(24,24,27,0.15)"/>
+            </filter>
+          </defs>
+          <path id="lightPath" filter="url(#lightBarShadow)"/>
+        </svg>
+        
+        <div class="ball" id="lightBall">
+          <svg class="ball-icon" id="lightBallIcon" width="20" height="20" viewBox="0 0 24 24" fill="none"></svg>
+        </div>
+        
+        <div class="tabs-row">
+          <button class="tab-btn" data-pane="light" data-index="0" aria-label="Home"></button>
+          <button class="tab-btn" data-pane="light" data-index="1" aria-label="Search"></button>
+          <button class="tab-btn" data-pane="light" data-index="2" aria-label="Analytics"></button>
+          <button class="tab-btn" data-pane="light" data-index="3" aria-label="Profile"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ── الثوابت الهندسية الدقيقة لمنحنى الـ SVG الجديد ──
+  const BAR_H = 60;   // الارتفاع المضغوط والأكثر رشاقة
+  const CORNER = 14;  // زاوية الانحناء الرشيقة لمنع تشوه الحواف عند الهوم
+  const DIP_R = 24;   // نصف قطر الانحناء المطور ليتطابق 100% مع الكرة
+  const DIP_D = 14;   // عمق المنحنى الهابط لأسفل
+
+  // الأيقونات المتوافقة مع نظام Lucide للتبويبات
+  const ICONS = [
+    `<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>`,
+    `<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>`,
+    `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>`,
+    `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`
+  ];
+
+  // المسميات العربية لتبويبات العرض
+  const TAB_NAMES = ["الواجهة الرئيسية", "محرك البحث الفوري", "التحليلات والمؤشرات", "إعدادات الحساب"];
+
+  // تدرج ألوان الخلفيات للثيم المظلم
+  const DARK_THEMES = [
+    { bg: 'radial-gradient(circle at center, #1e1b4b 0%, #08090d 100%)', glow: 'rgba(99, 102, 241, 0.3)' },
+    { bg: 'radial-gradient(circle at center, #062f4f 0%, #08090d 100%)', glow: 'rgba(56, 189, 248, 0.3)' },
+    { bg: 'radial-gradient(circle at center, #14532d 0%, #08090d 100%)', glow: 'rgba(34, 197, 94, 0.3)' },
+    { bg: 'radial-gradient(circle at center, #581c87 0%, #08090d 100%)', glow: 'rgba(168, 85, 247, 0.3)' }
+  ];
+
+  // تدرج ألوان الخلفيات للثيم المضيء (البيج والأسود الفاخر)
+  const LIGHT_THEMES = [
+    { bg: 'radial-gradient(circle at center, #f4f0e6 0%, #dcd7ca 100%)', glow: 'rgba(24, 24, 27, 0.08)' },
+    { bg: 'radial-gradient(circle at center, #ecebe4 0%, #cfd1c4 100%)', glow: 'rgba(24, 24, 27, 0.08)' },
+    { bg: 'radial-gradient(circle at center, #f2ebe5 0%, #dcd0c7 100%)', glow: 'rgba(24, 24, 27, 0.08)' },
+    { bg: 'radial-gradient(circle at center, #f5efe0 0%, #dfd3ba 100%)', glow: 'rgba(24, 24, 27, 0.08)' }
+  ];
+
+  // إدارة الحالات المنفصلة لكل لوحة
+  const state = {
+    dark: { active: 0 },
+    light: { active: 0 }
+  };
+
+  // ── نغمة النقر الفيزيائية (Haptic Synthesized Click) ──
+  function playClickHaptic() {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, audioCtx.currentTime); 
+      osc.frequency.exponentialRampToValueAtTime(70, audioCtx.currentTime + 0.12);
+      
+      gainNode.gain.setValueAtTime(0.12, audioCtx.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+      
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.12);
+    } catch(e) {
+      console.warn("Audio Context bypassed.");
+    }
+  }
+
+  // ── بناء هندسة مسار الـ SVG السائل ──
+  // الآن يتم تمرير cx الفعلي مباشرة لضمان محاذاة الكرة فوق الأيقونة تماماً دون أي انحراف
+  function drawLiquidPath(cx, W) {
+    const r = CORNER;
+    const dipR = DIP_R;
+    const dipD = DIP_D;
+    const cp = dipD * 0.58;
+
+    return [
+      `M ${r} 0`,
+      `L ${cx - dipR - 8} 0`,
+      `C ${cx - dipR} 0, ${cx - dipR * 0.45} ${cp}, ${cx} ${dipD}`,
+      `C ${cx + dipR * 0.45} ${cp}, ${cx + dipR} 0, ${cx + dipR + 8} 0`,
+      `L ${W - r} 0`,
+      `Q ${W} 0 ${W} ${r}`,
+      `L ${W} ${BAR_H}`,
+      `L 0 ${BAR_H}`,
+      `L 0 ${r}`,
+      `Q 0 0 ${r} 0`,
+      `Z`
+    ].join(' ');
+  }
+
+  // ── تحديث وعرض شريط التنقل للوحة محددة ──
+  function updateNavPane(pane, index, animate = true) {
+    state[pane].active = index;
+
+    const paneEl = document.getElementById(`${pane}Pane`);
+    const barContainer = document.getElementById(`${pane}NavBar`);
+    const pathEl = document.getElementById(`${pane}Path`);
+    const ballEl = document.getElementById(`${pane}Ball`);
+    const ballIconEl = document.getElementById(`${pane}BallIcon`);
+    const glowAuraEl = document.getElementById(`${pane}Glow`);
+    const titleEl = document.getElementById(`${pane}Title`);
+
+    const W = barContainer.offsetWidth;
+    const tabW = W / 4;
+    
+    // إحداثي المركز الفعلي للزر النشط - متطابق 100% مع موضع الأيقونة الفعلي
+    const cx = (index * tabW) + (tabW / 2);
+
+    // تغيير ألوان الخلفية وتأثير الهالة المحيطية
+    const currentTheme = pane === 'dark' ? DARK_THEMES[index] : LIGHT_THEMES[index];
+    paneEl.style.background = currentTheme.bg;
+    glowAuraEl.style.background = currentTheme.glow;
+
+    // رسم مسار الـ SVG وتلوينه بالكامل
+    pathEl.setAttribute('d', drawLiquidPath(cx, W));
+    pathEl.setAttribute('fill', pane === 'dark' ? 'url(#barGradDark)' : 'url(#barGradLight)');
+
+    // تمرير الكرة للموضع الصحيح والآمن تماماً
+    ballEl.style.left = `${cx}px`;
+    ballIconEl.innerHTML = ICONS[index];
+
+    // إطلاق الحركة الفيزيائية للكرة وصوت النقرة
+    if (animate) {
+      ballEl.classList.remove('squish');
+      void ballEl.offsetWidth; // تحديث الـ Reflow
+      ballEl.classList.add('squish');
+      playClickHaptic();
+    }
+
+    // كتابة اسم التبويب
+    titleEl.textContent = TAB_NAMES[index];
+
+    // تحديث الأزرار وحجب النشط داخل اللوحة المحددة
+    const buttons = paneEl.querySelectorAll('.tab-btn');
+    buttons.forEach((btn, idx) => {
+      btn.classList.toggle('is-active', idx === index);
+      btn.innerHTML = idx === index ? '' : `
+        <svg width="20" height="20" viewBox="0 0 24 24">
+          ${ICONS[idx]}
+        </svg>
+      `;
+    });
+  }
+
+  // ── تفعيل التفاعلات للنقرات الفردية لكلا الشريطين ──
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pane = btn.dataset.pane;
+      const idx = parseInt(btn.dataset.index);
+      updateNavPane(pane, idx);
+    });
+  });
+
+  // إعادة الحساب التلقائي والضبط عند تغيير الأبعاد لضمان تطابق بكسلي تام
+  window.addEventListener('resize', () => {
+    updateNavPane('dark', state.dark.active, false);
+    updateNavPane('light', state.light.active, false);
+  });
+
+  // تشغيل الواجهة المزدوجة فور تحميل الصفحة
+  window.onload = () => {
+    updateNavPane('dark', 0, false);
+    updateNavPane('light', 0, false);
+  }
+</script>
+</body>
+</html>
+
+
