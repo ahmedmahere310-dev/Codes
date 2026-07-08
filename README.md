@@ -46,7 +46,7 @@
     <!-- Post 1: KineticNav -->
     <td align="center" width="200">
       <a href="./KineticNav.html">
-        <img src="./assets/1000014779.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="KineticNav">
+        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/kineticnav-thumb.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="KineticNav">
         <br>
         <sub><b>🎬 KineticNav</b></sub>
       </a>
@@ -56,7 +56,7 @@
     <!-- Post 2: Audio Knob -->
     <td align="center" width="200">
       <a href="./audio-knob.html">
-        <img src="./assets/1000014781.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Audio Knob">
+        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/Screenshot_2026-07-08-23-41-02-37_1c337646f29875672b5a61192b90d8b7.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Audio Knob">
         <br>
         <sub><b>🎵 Audio Knob</b></sub>
       </a>
@@ -66,7 +66,7 @@
     <!-- Post 3: Eclipse Switch -->
     <td align="center" width="200">
       <a href="./eclipse-switch.html">
-        <img src="./assets/1000014782.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Eclipse Switch">
+        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/Screenshot_2026-07-08-23-41-08-48_1c337646f29875672b5a61192b90d8b7.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Eclipse Switch">
         <br>
         <sub><b>🌑 Eclipse Switch</b></sub>
       </a>
@@ -79,7 +79,7 @@
     <!-- Post 4: Water Glass Navbar -->
     <td align="center" width="200">
       <a href="./water-glass-navbar.html">
-        <img src="./assets/1000014780.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Water Glass Navbar">
+        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/waterglass-thumb.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Water Glass Navbar">
         <br>
         <sub><b>💎 Water Glass</b></sub>
       </a>
