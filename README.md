@@ -1,149 +1,333 @@
 <div align="center">
 
-<!-- Profile Avatar -->
-<img src="https://github.com/ahmedmahere310-dev.png" width="120" height="120" style="border-radius: 50%; border: 3px solid #e1306c;" alt="Ahmed Maher Profile">
+<!-- Decorative Top Bar -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=b8954a&height=120&section=header&text=&fontSize=0" width="100%">
 
-<!-- Name & Handle -->
-<h1>Ahmed | UI/UX Developer</h1>
+<br><br>
 
-<!-- Stats Row -->
+<!-- Profile Section with Ring -->
 <table>
   <tr>
-    <td align="center"><b>4</b><br>posts</td>
-    <td align="center" width="20"></td>
-    <td align="center"><b>7</b><br>followers</td>
-    <td align="center" width="20"></td>
-    <td align="center"><b>2</b><br>following</td>
+    <td align="center">
+      <div style="border: 3px solid #b8954a; border-radius: 50%; padding: 4px; display: inline-block;">
+        <img src="https://github.com/ahmedmahere310-dev.png" width="110" height="110" style="border-radius: 50%; display: block;" alt="Ahmed Maher">
+      </div>
+      <br><br>
+      <h2>◈ Ahmed | UI/UX Developer ◈</h2>
+      <p>
+        <code>Web Designer</code> ◆ <code>Frontend Engineer</code>
+      </p>
+    </td>
   </tr>
 </table>
 
-<!-- Bio -->
-<p>
-💻 Web Designer<br>
-🎨 UI/UX مصمم ومطور واجهات<br>
-🧩 CSS Snippets + مكونات تفاعلية جاهزة<br>
-📌 كل بوست فيه كود وتصميم عملي<br>
-✨ ان ليس للإنسان إلا ما سعى<br>
-👇 تابعني وخد الإلهام
-</p>
+<br>
 
-<!-- Links -->
+<!-- Stats with Box Drawing Characters -->
+<table>
+  <tr>
+    <td align="center" width="100">
+      <pre style="margin:0; line-height:1.2;">
+┌─────────┐
+│    4    │
+│  posts  │
+└─────────┘
+      </pre>
+    </td>
+    <td width="30"></td>
+    <td align="center" width="100">
+      <pre style="margin:0; line-height:1.2;">
+┌─────────┐
+│    7    │
+│followers│
+└─────────┘
+      </pre>
+    </td>
+    <td width="30"></td>
+    <td align="center" width="100">
+      <pre style="margin:0; line-height:1.2;">
+┌─────────┐
+│    2    │
+│following│
+└─────────┘
+      </pre>
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<!-- Bio Card -->
+<table>
+  <tr>
+    <td>
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║  💻  Web Designer  ·  🎨  UI/UX Developer                  ║
+║  🧩  CSS Snippets  ·  📌  Interactive Components             ║
+║  ✨  "ان ليس للإنسان إلا ما سعى"                            ║
+║  👇  Follow for inspiration                                  ║
+╚══════════════════════════════════════════════════════════════╝
+```
+
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<!-- Link -->
 <p>
-🔗 <a href="https://github.com/ahmedmahere310-dev/Codes.git">github.com/ahmedmahere310-dev/Codes.git</a>
+  <a href="https://github.com/ahmedmahere310-dev/Codes.git">
+    <code>🔗 github.com/ahmedmahere310-dev/Codes.git</code>
+  </a>
 </p>
 
 </div>
 
 ---
 
-<!-- Video Grid / Posts Gallery -->
-<h3 align="center">📱 Components Gallery | معرض المكونات</h3>
+<br>
 
+<!-- Components Section -->
 <div align="center">
 
+<h2>◆ ◇ ◆ Components Gallery ◆ ◇ ◆</h2>
+<h4>معرض المكونات</h4>
+
+<br>
+
 <table>
   <tr>
-    <!-- Post 1: KineticNav -->
-    <td align="center" width="200">
-      <a href="./KineticNav.html">
-        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/kineticnav-thumb.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="KineticNav">
-        <br>
-        <sub><b>🎬 KineticNav</b></sub>
+    <!-- Component 1 -->
+    <td align="center" width="180">
+      <a href="./KineticNav.html" style="text-decoration: none;">
+        <table>
+          <tr><td align="center" style="border: 2px solid #b8954a; border-radius: 12px; padding: 20px;">
+            <h1 style="margin: 0;">▶</h1>
+            <br>
+            <b>KineticNav</b>
+            <br><br>
+            <sub>Motion Navigation</sub>
+            <br>
+            <code>HTML ◈ CSS ◈ JS</code>
+          </td></tr>
+        </table>
       </a>
-      <br>
-      <sub>Advanced kinetic motion navigation</sub>
     </td>
-    <!-- Post 2: Audio Knob -->
-    <td align="center" width="200">
-      <a href="./audio-knob.html">
-        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/Screenshot_2026-07-08-23-41-02-37_1c337646f29875672b5a61192b9010f9.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Audio Knob">
-        <br>
-        <sub><b>🎵 Audio Knob</b></sub>
+    <td width="15"></td>
+    <!-- Component 2 -->
+    <td align="center" width="180">
+      <a href="./audio-knob.html" style="text-decoration: none;">
+        <table>
+          <tr><td align="center" style="border: 2px solid #b8954a; border-radius: 12px; padding: 20px;">
+            <h1 style="margin: 0;">◉</h1>
+            <br>
+            <b>Audio Knob</b>
+            <br><br>
+            <sub>Volume Control</sub>
+            <br>
+            <code>HTML ◈ CSS ◈ JS</code>
+          </td></tr>
+        </table>
       </a>
-      <br>
-      <sub>Custom interactive audio control</sub>
     </td>
-    <!-- Post 3: Eclipse Switch -->
-    <td align="center" width="200">
-      <a href="./eclipse-switch.html">
-        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/Screenshot_2026-07-08-23-41-15-62_1c337646f29875672b5a61192b9010f9.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Eclipse Switch">
-        <br>
-        <sub><b>🌑 Eclipse Switch</b></sub>
+    <td width="15"></td>
+    <!-- Component 3 -->
+    <td align="center" width="180">
+      <a href="./eclipse-switch.html" style="text-decoration: none;">
+        <table>
+          <tr><td align="center" style="border: 2px solid #b8954a; border-radius: 12px; padding: 20px;">
+            <h1 style="margin: 0;">☾</h1>
+            <br>
+            <b>Eclipse Switch</b>
+            <br><br>
+            <sub>Theme Toggle</sub>
+            <br>
+            <code>HTML ◈ CSS ◈ JS</code>
+          </td></tr>
+        </table>
       </a>
-      <br>
-      <sub>State-toggle with eclipse design</sub>
     </td>
   </tr>
-  <tr height="10"><td></td><td></td><td></td></tr>
+  <tr height="15"><td></td><td></td><td></td><td></td><td></td></tr>
   <tr>
-    <!-- Post 4: Water Glass Navbar -->
-    <td align="center" width="200">
-      <a href="./water-glass-navbar.html">
-        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/waterglass-thumb.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Water Glass Navbar">
-        <br>
-        <sub><b>💎 Water Glass</b></sub>
+    <!-- Component 4 -->
+    <td align="center" width="180">
+      <a href="./water-glass-navbar.html" style="text-decoration: none;">
+        <table>
+          <tr><td align="center" style="border: 2px solid #b8954a; border-radius: 12px; padding: 20px;">
+            <h1 style="margin: 0;">◊</h1>
+            <br>
+            <b>Water Glass</b>
+            <br><br>
+            <sub>Glassmorphism Nav</sub>
+            <br>
+            <code>HTML ◈ CSS</code>
+          </td></tr>
+        </table>
       </a>
-      <br>
-      <sub>Glassmorphism navigation bar</sub>
     </td>
-    <!-- Post 5: Footer -->
-    <td align="center" width="200">
-      <a href="./footer.html">
-        <img src="https://raw.githubusercontent.com/ahmedmahere310-dev/Codes/main/assets/Screenshot_2026-07-08-23-41-08-48_1c337646f29875672b5a61192b9010f9.jpg" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Footer">
-        <br>
-        <sub><b>📋 Footer</b></sub>
+    <td width="15"></td>
+    <!-- Component 5 -->
+    <td align="center" width="180">
+      <a href="./footer.html" style="text-decoration: none;">
+        <table>
+          <tr><td align="center" style="border: 2px solid #b8954a; border-radius: 12px; padding: 20px;">
+            <h1 style="margin: 0;">▁</h1>
+            <br>
+            <b>Footer</b>
+            <br><br>
+            <sub>Bilingual Component</sub>
+            <br>
+            <code>HTML ◈ CSS</code>
+          </td></tr>
+        </table>
       </a>
-      <br>
-      <sub>Bilingual footer component</sub>
     </td>
-    <!-- Post 6: Coming Soon -->
-    <td align="center" width="200">
-      <a href="#">
-        <img src="https://via.placeholder.com/180x180/1a1a2e/b8954a?text=Coming+Soon" width="180" height="180" style="border-radius: 8px; object-fit: cover;" alt="Coming Soon">
-        <br>
-        <sub><b>⏳ Coming Soon</b></sub>
+    <td width="15"></td>
+    <!-- Component 6 -->
+    <td align="center" width="180">
+      <a href="#" style="text-decoration: none;">
+        <table>
+          <tr><td align="center" style="border: 2px dashed #666; border-radius: 12px; padding: 20px; opacity: 0.7;">
+            <h1 style="margin: 0;">⋯</h1>
+            <br>
+            <b>Coming Soon</b>
+            <br><br>
+            <sub>More Components</sub>
+            <br>
+            <code>Stay Tuned</code>
+          </td></tr>
+        </table>
       </a>
-      <br>
-      <sub>More components on the way</sub>
     </td>
   </tr>
 </table>
 
 </div>
 
----
-
-<!-- Tech Stack Section -->
-<h3 align="center">🛠 Tech Stack | التقنيات</h3>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-</p>
-
-<p align="center">
-  <b>Design Philosophy:</b> Minimalist, Interactive, High-Performance UI<br>
-  <b>Environment:</b> Mobile-first & Responsive Design
-</p>
+<br>
 
 ---
+
+<br>
+
+<!-- Tech Stack -->
+<div align="center">
+
+<h2>◆ ◇ ◆ Tech Stack ◆ ◇ ◆</h2>
+<h4>التقنيات المستخدمة</h4>
+
+<br>
+
+<table>
+  <tr>
+    <td align="center" width="120">
+      <pre style="margin:0;">
+┌──────────┐
+│   HTML   │
+│    5     │
+│  ┌───┐   │
+│  │ ◆ │   │
+│  └───┘   │
+└──────────┘
+      </pre>
+    </td>
+    <td width="20"></td>
+    <td align="center" width="120">
+      <pre style="margin:0;">
+┌──────────┐
+│   CSS    │
+│    3     │
+│  ┌───┐   │
+│  │ ◈ │   │
+│  └───┘   │
+└──────────┘
+      </pre>
+    </td>
+    <td width="20"></td>
+    <td align="center" width="120">
+      <pre style="margin:0;">
+┌──────────┐
+│    JS    │
+│   ES6+   │
+│  ┌───┐   │
+│  │ ◇ │   │
+│  └───┘   │
+└──────────┘
+      </pre>
+    </td>
+  </tr>
+</table>
+
+<br>
+
+<p>
+  <b>Design Philosophy:</b> Minimalist ◈ Interactive ◈ High-Performance UI<br>
+  <b>Environment:</b> Mobile-first & Responsive Design Architecture
+</p>
+
+</div>
+
+<br>
+
+---
+
+<br>
 
 <!-- About Section -->
-<h3 align="center">📝 About | حول المستودع</h3>
+<div align="center">
 
-<p align="center">
-  <b>English:</b> This repository serves as a library of my creative coding journey, focusing on fluid animations and user interface logic.
-</p>
+<h2>◆ ◇ ◆ About ◆ ◇ ◆</h2>
+<h4>حول المستودع</h4>
 
-<p align="center">
-  <b>العربية:</b> يعمل هذا المستودع كمكتبة لرحلتي في البرمجة الإبداعية، مع التركيز على الرسوم المتحركة الانسيابية ومنطق واجهات المستخدم.
-</p>
+<br>
+
+<table>
+  <tr>
+    <td width="400" align="left">
+
+```
+┌─────────────────────────────────────────┐
+│  ENGLISH                                │
+│  ────────                               │
+│  A creative coding library focused on   │
+│  fluid animations and UI logic.         │
+│                                         │
+│  العربية                                │
+│  ────────                               │
+│  مكتبة برمجية إبداعية تركز على          │
+│  الرسوم المتحركة الانسيابية ومنطق       │
+│  واجهات المستخدم.                       │
+└─────────────────────────────────────────┘
+```
+
+    </td>
+  </tr>
+</table>
+
+</div>
+
+<br>
 
 ---
 
+<br>
+
 <div align="center">
 
-*Maintained by Ahmed Maher* 💻
+<pre style="margin:0;">
+╔═══════════════════════════════════════╗
+║  ◈ Maintained by Ahmed Maher ◈      ║
+║  💻  UI/UX Developer                  ║
+╚═══════════════════════════════════════╝
+</pre>
+
+<br>
+
+<!-- Decorative Bottom Bar -->
+<img src="https://capsule-render.vercel.app/api?type=waving&color=b8954a&height=80&section=footer&text=&fontSize=0" width="100%">
 
 </div>
