@@ -13,6 +13,7 @@
 | **`audio-knob.html`** | Custom interactive audio control component. | [View Code](./audio-knob.html) |
 | **`eclipse-switch.html`** | State-toggle component with eclipse design. | [View Code](./eclipse-switch.html) |
 | **`water-glass-navbar.html`** | Glassmorphism-based navigation bar. | [View Code](./water-glass-navbar.html) |
+| **`footer.html`** | Clean bilingual footer component (Arabic/English). | [View Code](./footer.html) |
 
 ---
 
